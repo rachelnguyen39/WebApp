@@ -39,7 +39,3 @@ const decryptMessage = (encryptedMessage, senderPublicKey) => {
   const decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, senderPublicKey).toString(CryptoJS.enc.Utf8);
   return decryptedMessage;
 };
-
-// Link this JavaScript file to your .jinja file
-// In your .jinja file, include the JavaScript file using <script> tag like this:
-// <script src="{{ url_for('static', filename='your_js_file.js') }}"></script>
