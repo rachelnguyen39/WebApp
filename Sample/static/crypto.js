@@ -20,7 +20,7 @@ const loadPublicKey = () => {
 
 
 // Generate a new key pair and send the public key to the server
-const generateSenderKey = async (username) => {
+function generateSenderKey () {
   const privateKey = CryptoJS.lib.WordArray.random(16).toString();
   const publicKey = CryptoJS.SHA256(privateKey).toString();
 
@@ -29,7 +29,7 @@ const generateSenderKey = async (username) => {
   localStorage.setItem("senderPublicKey", publicKey);
 
   // Make an HTTP request to send the public key to the server
-  const response = await fetch('https://localhost:5000/home', {
+  /*const response = await fetch('https://localhost:5000/home', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -41,10 +41,10 @@ const generateSenderKey = async (username) => {
     console.log('Public key sent to server successfully!');
   } else {
     console.error('Failed to send public key to server:', response.statusText);
-  }
+  }*/
 };
 
-const generateReceiverKey = async (username) => {
+function generateReceiverKey () {
   const privateKey = CryptoJS.lib.WordArray.random(16).toString();
   const publicKey = CryptoJS.SHA256(privateKey).toString();
 
@@ -53,7 +53,7 @@ const generateReceiverKey = async (username) => {
   localStorage.setItem("receiverPublicKey", publicKey);
 
   // Make an HTTP request to send the public key to the server
-  const response = await fetch('https://localhost:5000/home', {
+  /*const response = await fetch('https://localhost:5000/home', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -65,18 +65,20 @@ const generateReceiverKey = async (username) => {
     console.log('Public key sent to server successfully!');
   } else {
     console.error('Failed to send public key to server:', response.statusText);
-  }
+  }*/
 };
 
 // Encrypt a message with recipient's public key
-const encryptMessage = (message, recipientPublicKey) => {
+function encrypt (message, recipientPublicKey) {
   const encryptedMessage = CryptoJS.AES.encrypt(message, recipientPublicKey).toString();
   return encryptedMessage;
 };
 
 // Decrypt a message with receiver's private key
-const decryptMessage = (encryptedMessage, receiverPrivateKey) => {
+function decrypt (encryptedMessage, receiverPrivateKey) {
   const decryptedMessage = CryptoJS.AES.decrypt(encryptedMessage, receiverPrivateKey).toString(CryptoJS.enc.Utf8);
   return decryptedMessage;
 };
+
+
 
